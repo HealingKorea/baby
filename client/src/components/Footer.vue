@@ -32,7 +32,7 @@ export default {
             <li class="footer_item" :class="{footer_focus: $route.name == 'Chat'}" id="icon-chat" @click="page('/Chat')">
                 <span class="footer_link" :class="{focused: $route.name == 'Chat'}">채팅</span>
             </li>
-            <li class="footer_item" :class="{footer_focus: $route.name == 'Diary'}" id="icon-wiki" @click="page('/Diary')">
+            <li class="footer_item" :class="{footer_focus: $route.name == 'Diary' || $route.name == 'Diary-edit'}" id="icon-wiki" @click="page('/Diary')">
                 <span class="footer_link" :class="{focused: $route.name == 'Diary'}">아기 일기</span>
             </li>
             <li class="footer_item" :class="{footer_focus: $route.name == 'Setting'}" id="icon-setting" @click="page('/Setting')">

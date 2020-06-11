@@ -9,7 +9,8 @@ export default {
         return {
             calendarWeek: new Array(),
             currentYear: 0,
-            currentMonth: 0
+            currentMonth: 0,
+            selectedDay: 0
         }
     },
     created () {
@@ -48,6 +49,7 @@ export default {
         swipeHandler(e) {
             var currentMonth = this.currentMonth;
             var currentYear = this.currentYear;
+            this.selectedDay = 0;
 
             if (e == "right") {
                 if (currentMonth == 1) {
@@ -67,6 +69,17 @@ export default {
 
             var updateDate = new Date(currentYear, currentMonth - 1, 1);
             this.makeCalendar(updateDate);
+        },
+        onClickTable(day, idx) {
+            console.log(day);
+            this.selectedDay = day;
+            if (typeof this.selectedDay != "undefined")
+                this.$router.push('Diary-edit').catch(err => {});
+        },
+        isSelectedDay(day) {
+            if (typeof this.selectedDay == "undefined") return false;
+            else if (this.selectedDay == day) return true;
+            else return false;
         }
     }
 }
@@ -87,7 +100,7 @@ export default {
         </div>
         <div id="calendar">
             <div class="calendar-week" v-for="(week, idx) in calendarWeek" v-bind:key="idx">
-                <div class="day" v-for="(day, idx) in week" v-bind:key="idx">{{ day }}</div>
+                <div class="day" :class="{'select-day' : isSelectedDay(day)}" v-for="(day, idx) in week" v-bind:key="idx" v-on:click="onClickTable(day)">{{ day }}</div>
             </div>
         </div>
     </div>
@@ -141,4 +154,9 @@ export default {
     border-left: 1px solid #ddd;
     border-top: 1px solid #ddd;
 }
+
+.select-day {
+    background-color: rgba(123,123,123, 0.5);
+}
 </style>
+
